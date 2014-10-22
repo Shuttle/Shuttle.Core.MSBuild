@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>shuttle-core-msbuild</id>
+		<version>1.0.0</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+		<licenseUrl>https://github.com/shuttle/shuttle-core-msbuild/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/shuttle-core-msbuild</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/shuttle-core-msbuild/master/.media/logo.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Contains MSBuild tasks used in building Shuttle solutions.</description>
+		<releaseNotes/>
+		<copyright>Copyright (c) 2011-2014, Eben Roux</copyright>
+		<tags>msbuild shuttle</tags>
+	</metadata>
+	<files>
+		<file src="..\..\release\**\*.*" target="content" />
+	</files>
+</package>

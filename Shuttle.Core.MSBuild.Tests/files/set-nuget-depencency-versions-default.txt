@@ -1,0 +1,4 @@
+﻿<dependencies>
+	<dependency id="another.package" version="[{another.package-version}]" />
+	<dependency id="some-package" version="[{some-package-version}]" />
+</dependencies>

@@ -1,0 +1,22 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="PerformRelease" ToolsVersion="4.0">
+	<PropertyGroup>
+		<DeploymentFolder>.deployment</DeploymentFolder>
+	</PropertyGroup>
+
+	<Target Name="PerformRelease">
+		<MSBuild Projects="build.msbuild" />
+
+		<MSBuild Projects="publish-nuget.msbuild" Targets="NugetDeployment" Properties="PackageId=shuttle-core-msbuild;include=.\deployment\release\**\Shuttle.Core.MSBuild.dll" Condition="$(PackageId) == '' Or $(PackageId) == 'shuttle-core-msbuild'"/>
+	</Target>
+
+	<Target Name="NugetDeployment">
+		<CreateItem Include="$(include)">
+			<Output TaskParameter="Include" ItemName="NugetBinaries"/>
+		</CreateItem>
+
+		<Copy SourceFiles="$(PackageId).nuspec" DestinationFolder="$(DeploymentFolder)\nuget\$(PackageId)" SkipUnchangedFiles="false" />
+
+		<Exec Command="nuget pack $(PackageId).nuspec" WorkingDirectory="$(DeploymentFolder)\nuget\$(PackageId)" />
+		<Exec Command="nuget push $(DeploymentFolder)\nuget\$(PackageId)\$(PackageId).1.0.0.nupkg" Condition="$(Operation) != 'pack-only'" />
+	</Target>  
+</Project>
