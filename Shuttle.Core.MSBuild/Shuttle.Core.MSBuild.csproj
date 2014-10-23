@@ -58,9 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nuget\Package.cs" />
+    <Compile Include="Nuget\PackageFolder.cs" />
     <Compile Include="RegexFindAndReplace.cs" />
     <Compile Include="Prompt.cs" />
-    <Compile Include="SetNugetDepencencyVersions.cs" />
+    <Compile Include="Nuget\SetNugetPackageVersions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

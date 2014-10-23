@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>shuttle-core-msbuild</id>
-		<version>1.0.0</version>
+		<version>{semver}</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
 		<licenseUrl>https://github.com/shuttle/shuttle-core-msbuild/raw/master/LICENSE</licenseUrl>
@@ -15,6 +15,6 @@
 		<tags>msbuild shuttle</tags>
 	</metadata>
 	<files>
-		<file src="..\..\release\**\*.*" target="content" />
+		<file src="tools\**\*.*" target="tools" />
 	</files>
 </package>

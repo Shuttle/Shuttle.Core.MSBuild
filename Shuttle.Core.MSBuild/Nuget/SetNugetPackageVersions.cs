@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 namespace Shuttle.Core.MSBuild
 {
-	public class SetNugetDepencencyVersions : Task
+	public class SetNugetPackageVersions : Task
 	{
-		private readonly Regex dependencyExpression = new Regex(@"(?<dependency>.*)\.(?<version>\d\.\d\.\d)", RegexOptions.IgnoreCase);
-
 		public override bool Execute()
 		{
 			var openTag = string.IsNullOrEmpty(OpenTag) ? "{" : OpenTag;
@@ -36,30 +33,18 @@ namespace Shuttle.Core.MSBuild
 				}
 			}
 
-			foreach (var directory in Directory.GetDirectories(PackageFolder.ItemSpec))
+			var packageFolder = new PackageFolder(PackageFolder.ItemSpec);
+
+			foreach (var message in packageFolder.Messages)
 			{
-				var directoryName = Path.GetFileName(directory);
+				Log.LogMessage(message);
+			}
 
-				if (string.IsNullOrEmpty(directoryName))
-				{
-					continue;
-				}
-
-				var match = dependencyExpression.Match(directoryName);
-
-				var dependency = match.Groups["dependency"];
-				var version = match.Groups["version"];
-
-				if (!dependency.Success || !version.Success)
-				{
-					Log.LogMessage("Package dependency folder '{0}' does not match the expected dependency structure.", directoryName);
-
-					return true;
-				}
-
+			foreach (var package in packageFolder.Packages)
+			{
 				foreach (var file in files)
 				{
-					File.WriteAllText(file, File.ReadAllText(file).Replace(string.Format("{0}{1}-version{2}", openTag, dependency.Value, closeTag), version.Value));
+					File.WriteAllText(file, File.ReadAllText(file).Replace(string.Format("{0}{1}-version{2}", openTag, package.Name, closeTag), package.Version));
 				}
 			}
 
