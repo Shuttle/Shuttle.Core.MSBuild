@@ -15,9 +15,9 @@ Prompts the user for input that is saved in the given output parameter.
 | UserInput | output | The value entered on the console. |
 
 ``` xml
-  <Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
-	  <Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
-	</Prompt>
+<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
+	<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
+</Prompt>
 ```
 
 ### RegexFindAndReplace
@@ -34,7 +34,7 @@ Performs a regular expression find/replace on the given files.
 | Singleline | no | Defaults to false. |
 
 ``` xml
-	<RegexFindAndReplace Files="files" FindExpression="regex" ReplacementText="new-text" />
+<RegexFindAndReplace Files="files" FindExpression="regex" ReplacementText="new-text" />
 ```
 
 ### SetNugetPackageVersions
@@ -49,5 +49,5 @@ Retrieves the package names and version from the given package folder and replac
 | CloseTag | no | Defaults to `}`. |
 
 ``` xml
-	<SetNugetPackageVersions Files="files" PackageFolder="nuget-package-folder" />
+<SetNugetPackageVersions Files="files" PackageFolder="nuget-package-folder" />
 ```
