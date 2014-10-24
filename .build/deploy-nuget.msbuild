@@ -1,8 +1,12 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="PerformRelease" ToolsVersion="4.0">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
 	<UsingTask AssemblyFile="..\Shuttle.Core.MSBuild\bin\Debug\Shuttle.Core.MSBuild.dll" TaskName="Shuttle.Core.MSBuild.Prompt" />
 	<UsingTask AssemblyFile="..\Shuttle.Core.MSBuild\bin\Debug\Shuttle.Core.MSBuild.dll" TaskName="Shuttle.Core.MSBuild.RegexFindAndReplace" />
+	
+	<PropertyGroup>
+		<DeploymentFolder>deployment</DeploymentFolder>
+	</PropertyGroup>
 
-	<Target Name="PerformRelease">
+	<Target Name="Deploy">
 		<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
 			<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
 		</Prompt>
@@ -16,16 +20,16 @@
 		<MSBuild Projects="build.msbuild" />
 
 		<ItemGroup>
-			<NugetBinaries Include=".deployment\release\**\*.*" />
+			<NugetBinaries Include="$(DeploymentFolder)\release\**\*.dll" />
 		</ItemGroup>
 
-		<Copy SourceFiles="shuttle-core-msbuild.nuspec" DestinationFolder=".deployment\nuget\shuttle-core-msbuild" SkipUnchangedFiles="false" />
-		<Copy SourceFiles="@(NugetBinaries)" DestinationFolder=".deployment\nuget\shuttle-core-msbuild\tools\%(RecursiveDir)" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="shuttle-core-msbuild.nuspec" DestinationFolder="$(DeploymentFolder)\nuget\shuttle-core-msbuild" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(NugetBinaries)" DestinationFolder="$(DeploymentFolder)\nuget\shuttle-core-msbuild\tools\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
-		<RegexFindAndReplace Files=".deployment\nuget\shuttle-core-msbuild\shuttle-core-msbuild.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
+		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\shuttle-core-msbuild\shuttle-core-msbuild.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
 
-		<Exec Command="nuget pack shuttle-core-msbuild.nuspec -NoPackageAnalysis" WorkingDirectory=".deployment\nuget\shuttle-core-msbuild" />
-		<Exec Command="nuget push .deployment\nuget\shuttle-core-msbuild\shuttle-core-msbuild.$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
+		<Exec Command="nuget pack shuttle-core-msbuild.nuspec -NoPackageAnalysis" WorkingDirectory="$(DeploymentFolder)\nuget\shuttle-core-msbuild" />
+		<Exec Command="nuget push $(DeploymentFolder)\nuget\shuttle-core-msbuild\shuttle-core-msbuild.$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
 	</Target>
 
 	<Target Name="ApplyVersionNumbers">
