@@ -12,9 +12,16 @@ namespace Shuttle.Core.MSBuild
 			var openTag = string.IsNullOrEmpty(OpenTag) ? "{" : OpenTag;
 			var closeTag = string.IsNullOrEmpty(CloseTag) ? "}" : CloseTag;
 
-			if (!Directory.Exists(PackageFolder.ItemSpec))
+			var packageFolderPath = PackageFolder.ItemSpec;
+
+			if (!Path.IsPathRooted(packageFolderPath))
 			{
-				Log.LogError("PackageFolder '{0}' does not exist.", PackageFolder.ItemSpec);
+				packageFolderPath = Path.GetFullPath(packageFolderPath);
+			}
+
+			if (!Directory.Exists(packageFolderPath))
+			{
+				Log.LogError("PackageFolder '{0}' does not exist.", packageFolderPath);
 
 				return false;
 			}
@@ -33,7 +40,7 @@ namespace Shuttle.Core.MSBuild
 				}
 			}
 
-			var packageFolder = new PackageFolder(PackageFolder.ItemSpec);
+			var packageFolder = new PackageFolder(packageFolderPath);
 
 			foreach (var message in packageFolder.Messages)
 			{

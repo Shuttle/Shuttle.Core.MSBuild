@@ -5,6 +5,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Core.MSBuild", "Shu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Core.MSBuild.Tests", "Shuttle.Core.MSBuild.Tests\Shuttle.Core.MSBuild.Tests.csproj", "{A8200101-493D-45D7-AC1B-65C1EDD413FC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{911FCB34-025D-4FEE-BD79-72958F181A11}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{5F305AF2-18C1-4600-891B-046924A6E50D}"
+	ProjectSection(SolutionItems) = preProject
+		.build\build.msbuild = .build\build.msbuild
+		.build\deploy-nuget.msbuild = .build\deploy-nuget.msbuild
+		.build\shuttle-core-msbuild.nuspec = .build\shuttle-core-msbuild.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
