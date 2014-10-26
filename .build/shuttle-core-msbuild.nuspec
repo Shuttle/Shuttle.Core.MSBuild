@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Contains MSBuild tasks used in building Shuttle solutions.</description>
 		<releaseNotes/>
-		<copyright>Copyright (c) 2011-2014, Eben Roux</copyright>
+		<copyright>Copyright (c) 2011-{year}, Eben Roux</copyright>
 		<tags>msbuild shuttle</tags>
 	</metadata>
 	<files>
