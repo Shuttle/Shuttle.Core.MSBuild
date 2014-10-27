@@ -32,7 +32,7 @@ namespace Shuttle.Core.MSBuild.Tests
 			Assert.IsTrue(contents.Contains("<dependency id=\"another.package\" version=\"[3.2.1]\" />"));
 			Assert.IsTrue(contents.Contains("<dependency id=\"some-package\" version=\"[1.2.3]\" />"));
 			Assert.IsTrue(contents.Contains("<dependency id=\"prerelease-package\" version=\"[4.5.6]\" />"));
-			Assert.IsTrue(contents.Contains("<dependency id=\"full-vesion.package\" version=\"[4.5.6]\" />"));
+			Assert.IsTrue(contents.Contains("<dependency id=\"full-version.package\" version=\"[4.5.6.7000]\" />"));
 
 			File.Delete(@".\files\set-nuget-depencency-versions-default-test.txt");
 		}
@@ -61,7 +61,7 @@ namespace Shuttle.Core.MSBuild.Tests
 			Assert.IsTrue(contents.Contains("<dependency id=\"another.package\" version=\"[3.2.1]\" />"));
 			Assert.IsTrue(contents.Contains("<dependency id=\"some-package\" version=\"[1.2.3]\" />"));
 			Assert.IsTrue(contents.Contains("<dependency id=\"prerelease-package\" version=\"[4.5.6]\" />"));
-			Assert.IsTrue(contents.Contains("<dependency id=\"full-vesion.package\" version=\"[4.5.6]\" />"));
+			Assert.IsTrue(contents.Contains("<dependency id=\"full-version.package\" version=\"[4.5.6.7000]\" />"));
 
 			File.Delete(@".\files\set-nuget-depencency-versions-custom-test.txt");
 		}

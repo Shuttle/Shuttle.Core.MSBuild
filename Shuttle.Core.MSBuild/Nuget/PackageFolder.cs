@@ -9,7 +9,7 @@ namespace Shuttle.Core.MSBuild
 	public class PackageFolder
 	{
 		private static readonly Regex dependencyExpression =
-			new Regex(@"(?<package>.*?)\.(?<version>(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+))[-\.]?(?<prerelease>.*)",
+			new Regex(@"(?<package>.*?)\.(?<version>(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?<revision>\.\d+)?)[-\.]?(?<prerelease>.*)",
 			          RegexOptions.IgnoreCase);
 
 		private readonly List<Package> _packages = new List<Package>();
