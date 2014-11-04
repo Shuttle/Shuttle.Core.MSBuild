@@ -14,9 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{5F305AF2-18C1-4600-891B-046924A6E50D}"
 	ProjectSection(SolutionItems) = preProject
 		.build\Install.ps1 = .build\Install.ps1
-		.build\package-template.msbuild = .build\package-template.msbuild
 		.build\package.msbuild = .build\package.msbuild
-		.build\shuttle-core-msbuild.nuspec = .build\shuttle-core-msbuild.nuspec
+		.build\package.msbuild.template = .build\package.msbuild.template
+		.build\package.nuspec = .build\package.nuspec
+		.build\package.nuspec.template = .build\package.nuspec.template
 		.build\Shuttle.Core.MSBuild.targets = .build\Shuttle.Core.MSBuild.targets
 	EndProjectSection
 EndProject

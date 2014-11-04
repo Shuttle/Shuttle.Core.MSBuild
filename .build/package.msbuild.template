@@ -1,8 +1,9 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
 	<PropertyGroup>
 		<DeploymentFolder>deployment</DeploymentFolder>
-		<PackageName>{package-name}</PackageName>
+		<NuGetExecutablePath>..\.nuget\nuget.exe</NuGetExecutablePath>
 		<PackageAssembly>{package-assembly}</PackageAssembly>
+		<PackageAssembly>{package-name}</PackageAssembly>
 	</PropertyGroup>
 
 	<Import Project="Shuttle.Core.MSBuild.targets" />
@@ -40,14 +41,14 @@
 			<NugetBinaries Include="$(DeploymentFolder)\release\**\$(PackageAssembly).dll" />
 		</ItemGroup>
 
-		<Copy SourceFiles="$(PackageName).nuspec" DestinationFolder="$(DeploymentFolder)\nuget\$(PackageName)" SkipUnchangedFiles="false" />
-		<Copy SourceFiles="@(NugetBinaries)" DestinationFolder="$(DeploymentFolder)\nuget\$(PackageName)\lib\%(RecursiveDir)" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="package.nuspec" DestinationFolder="$(DeploymentFolder)\nuget\" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(NugetBinaries)" DestinationFolder="$(DeploymentFolder)\nuget\lib\%(RecursiveDir)" SkipUnchangedFiles="false" />
 
-		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\$(PackageName)\$(PackageName).nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
-		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\$(PackageName)\$(PackageName).nuspec" FindExpression="\{year\}" ReplacementText="$([System.DateTime]::Now.ToString(`yyyy`))" />
-		<SetNugetPackageVersions Files="$(DeploymentFolder)\nuget\$(PackageName)\$(PackageName).nuspec" PackageFolder="..\packages" />
+		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
+		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{year\}" ReplacementText="$([System.DateTime]::Now.ToString(`yyyy`))" />
+		<SetNugetPackageVersions Files="$(DeploymentFolder)\nuget\package.nuspec" PackageFolder="..\packages" />
 
-		<Exec Command="$(NuGetExecutablePath) pack $(DeploymentFolder)\nuget\$(PackageName)\$(PackageName).nuspec -OutputDirectory $(DeploymentFolder)\nuget\$(PackageName) -NoPackageAnalysis" />
-		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName)\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
+		<Exec Command="$(NuGetExecutablePath) pack $(DeploymentFolder)\nuget\package.nuspec -OutputDirectory $(DeploymentFolder)\nuget -NoPackageAnalysis" />
+		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
 	</Target>
 </Project>

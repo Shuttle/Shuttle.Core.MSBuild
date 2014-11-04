@@ -27,46 +27,26 @@ namespace Shuttle.Core.MSBuild
 
 		public override bool Execute()
 		{
-			var options = RegexOptions.None;
-
-			if (IgnoreCase)
-			{
-				options |= RegexOptions.IgnoreCase;
-			}
-
-			if (Multiline)
-			{
-				options |= RegexOptions.Multiline;
-			}
-
-			if (Singleline)
-			{
-				options |= RegexOptions.Singleline;
-			}
-
-			var replaceRegex = new Regex(FindExpression, options);
-
 			try
 			{
+				var task = new RegexFindAndReplaceTask()
+				{
+					FindExpression = FindExpression,
+					ReplacementText = ReplacementText,
+					IgnoreCase = IgnoreCase,
+					Multiline = Multiline,
+					Singleline = Singleline
+				};
+
+				task.LogMessage += (message) => Log.LogMessage(message);
+				task.LogWarning += (warning) => Log.LogWarning(warning);
+
 				foreach (var file in Files)
 				{
-					var path = file.ItemSpec;
-
-					var contents = File.ReadAllText(path);
-
-					if (replaceRegex.IsMatch(contents) != true)
-					{
-						Log.LogWarning(String.Format("[find/replace - no matches] : file = '{0}'", path));
-					}
-					else
-					{
-						contents = replaceRegex.Replace(contents, ReplacementText);
-
-						File.WriteAllText(path, contents);
-
-						Log.LogMessage("[find/replace] : file = '{0}'", path);
-					}
+					task.AddFile(file.ItemSpec);
 				}
+
+				task.Execute();
 
 				return true;
 			}

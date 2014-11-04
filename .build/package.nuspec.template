@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>{package-name}</id>
+		<version>{semver}</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+		<licenseUrl>https://github.com/shuttle/{package-name}/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/{package-name}</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/{package-name}/master/.media/logo.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description></description>
+		<releaseNotes/>
+		<copyright>Copyright (c) 2011-{year}, Eben Roux</copyright>
+		<tags>shuttle</tags>
+	</metadata>
+</package>
