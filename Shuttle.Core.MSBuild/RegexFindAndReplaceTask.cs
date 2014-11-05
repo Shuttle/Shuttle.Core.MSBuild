@@ -65,7 +65,7 @@ namespace Shuttle.Core.MSBuild
 
 					if (replaceRegex.IsMatch(contents) != true)
 					{
-						LogWarning.Invoke(string.Format("[find/replace - no matches] : file = '{0}'", file));
+						LogWarning.Invoke(string.Format("[find/replace - no matches] : file = '{0}' / find expression = '{1}'", file, FindExpression));
 					}
 					else
 					{
