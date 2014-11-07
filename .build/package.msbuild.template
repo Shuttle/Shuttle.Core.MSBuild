@@ -3,7 +3,7 @@
 		<DeploymentFolder>deployment</DeploymentFolder>
 		<NuGetExecutablePath>..\.nuget\nuget.exe</NuGetExecutablePath>
 		<PackageAssembly>{package-assembly}</PackageAssembly>
-		<PackageAssembly>{package-name}</PackageAssembly>
+		<PackageName>{package-name}</PackageName>
 	</PropertyGroup>
 
 	<Import Project="Shuttle.Core.MSBuild.targets" />
