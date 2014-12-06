@@ -59,8 +59,8 @@ Creates an archive that contains the given files.
 | Parameter | Required | Description |
 | --- | --- | --- |
 | Files | yes | The files that should be added to the zip archive. |
-| RelativeFolder | yes | The 'base' folder that the zip entries should be created from.  e.g. i	 |
-| ReplacementText | no | The text to replace the located expression with. |
+| RelativeFolder | yes | The 'base' folder that the zip entries should be created from.  e.g. if there is a file `c:\folder\another\file.txt` and the `RelativeFolder` is `c:\folder\` then the entry in the zip archive will be `another\file.txt`.	 |
+| ZipFilePath | yes | The path to the zip archive that will be created.  Any existing file will be overwritten. |
 
 ``` xml
 <Zip Files="@(Files)" RelativeFolder="$(OutputPath)" ZipFilePath="$(OutputPath).zip" />
