@@ -11,7 +11,7 @@
 	<UsingTask AssemblyFile="..\Shuttle.Core.MSBuild\bin\Debug\Shuttle.Core.MSBuild.dll" TaskName="Shuttle.Core.MSBuild.SetNugetPackageVersions" />
 
 	<ItemGroup>
-		<Framework Include="net35-full" />
+		<Framework Include="net45-full" />
 		<ProjectReference Include="..\$(PackageAssembly)\$(PackageAssembly).csproj" />
 	</ItemGroup>
 
@@ -39,13 +39,12 @@
         />
 
 		<ItemGroup>
-			<NugetTools Include="$(DeploymentFolder)\debug\net35-full\$(PackageAssembly).*;package.msbuild.template;package.nuspec.template;install.ps1;Shuttle.Core.MSBuild.targets" />
-			<NugetContent Include="..\shuttle-core-msbuild-readme.md" />
+			<NugetTools Include="$(DeploymentFolder)\debug\net45-full\$(PackageAssembly).*;package.msbuild.template;package.nuspec.template;install.ps1;Shuttle.Core.MSBuild.targets" />
 		</ItemGroup>
 
 		<Copy SourceFiles="package.nuspec" DestinationFolder="$(DeploymentFolder)\nuget" SkipUnchangedFiles="false" />
 		<Copy SourceFiles="@(NugetTools)" DestinationFolder="$(DeploymentFolder)\nuget\tools\" SkipUnchangedFiles="false" />
-		<Copy SourceFiles="@(NugetContent)" DestinationFolder="$(DeploymentFolder)\nuget\content\" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="..\readme.md" DestinationFiles="$(DeploymentFolder)\nuget\content\shuttle-core-msbuild-readme.md" SkipUnchangedFiles="false" />
 
 		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
 		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{year\}" ReplacementText="$([System.DateTime]::Now.ToString(`yyyy`))" />
