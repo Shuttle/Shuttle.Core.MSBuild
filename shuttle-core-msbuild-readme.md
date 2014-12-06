@@ -34,7 +34,7 @@ Performs a regular expression find/replace on the given files.
 | Singleline | no | Defaults to false. |
 
 ``` xml
-<RegexFindAndReplace Files="files" FindExpression="regex" ReplacementText="new-text" />
+<RegexFindAndReplace Files="@(Files)" FindExpression="regex" ReplacementText="new-text" />
 ```
 
 ### SetNugetPackageVersions
@@ -49,5 +49,19 @@ Retrieves the package names and version from the given package folder and replac
 | CloseTag | no | Defaults to `}`. |
 
 ``` xml
-<SetNugetPackageVersions Files="files" PackageFolder="nuget-package-folder" />
+<SetNugetPackageVersions Files="@(Files)" PackageFolder="nuget-package-folder" />
+```
+
+### Zip
+
+Creates an archive that contains the given files.
+
+| Parameter | Required | Description |
+| --- | --- | --- |
+| Files | yes | The files that should be added to the zip archive. |
+| RelativeFolder | yes | The 'base' folder that the zip entries should be created from.  e.g. i	 |
+| ReplacementText | no | The text to replace the located expression with. |
+
+``` xml
+<Zip Files="@(Files)" RelativeFolder="$(OutputPath)" ZipFilePath="$(OutputPath).zip" />
 ```
