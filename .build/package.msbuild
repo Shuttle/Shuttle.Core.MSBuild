@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
 	<PropertyGroup>
-		<DeploymentFolder>package</DeploymentFolder>
+		<DeploymentFolder>deployment</DeploymentFolder>
 		<NuGetExecutablePath>..\.nuget\nuget.exe</NuGetExecutablePath>
 		<PackageAssembly>Shuttle.Core.MSBuild</PackageAssembly>
 		<PackageName>shuttle-core-msbuild</PackageName>
