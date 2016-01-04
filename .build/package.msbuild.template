@@ -18,6 +18,21 @@
 		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\$(DeploymentFolder)\release\%(Framework.Identity)"/>
 	</Target>
 
+	<Target Name="SemanticVersion">
+		<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
+			<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
+		</Prompt>
+
+		<Error Text="Please enter a version number." Condition="$(SemanticVersion) == ''" />
+
+		<ItemGroup>
+			<AssemblyInfoFiles Include="..\**\*AssemblyInfo.cs" Exclude="..\*.Tests\**\*AssemblyInfo.cs"/>
+		</ItemGroup>
+
+		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyInformationalVersion\s*\(\s*&quot;.*&quot;\s*\)" ReplacementText="AssemblyInformationalVersion(&quot;$(SemanticVersion)&quot;)" />
+		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyVersion\s*\(\s*&quot;.*&quot;\s*\)" ReplacementText="AssemblyVersion(&quot;$(SemanticVersion).0&quot;)" />
+	</Target>
+
 	<Target Name="Deploy" DependsOnTargets="SemanticVersion">
 		<MSBuild
 				Projects="$(MSBuildProjectFile)"
