@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy" ToolsVersion="4.0">
 	<PropertyGroup>
-		<DeploymentFolder>deployment</DeploymentFolder>
+		<DeploymentFolder>package</DeploymentFolder>
 		<NuGetExecutablePath>..\.nuget\nuget.exe</NuGetExecutablePath>
 		<PackageAssembly>{package-assembly}</PackageAssembly>
 		<PackageName>{package-name}</PackageName>
@@ -18,23 +18,22 @@
 		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Release;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\release\%(Framework.Identity)"/>
 	</Target>
 
-	<Target Name="Deploy">
-		<Prompt Text="Enter semantic version:" Condition="$(SemanticVersion) == ''">
-			<Output TaskParameter="UserInput" PropertyName="SemanticVersion" />
-		</Prompt>
-
-		<Error Text="Please enter a version number." Condition="$(SemanticVersion) == ''" />
-
-		<ItemGroup>
-			<AssemblyInfoFiles Include="..\**\*AssemblyInfo.cs" Exclude="..\*.Tests\**\*AssemblyInfo.cs"/>
-		</ItemGroup>
-
-		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyInformationalVersion\s*\(\s*&quot;.*&quot;\s*\)" ReplacementText="AssemblyInformationalVersion(&quot;$(SemanticVersion)&quot;)" />
-		<RegexFindAndReplace Files="@(AssemblyInfoFiles)" FindExpression="AssemblyVersion\s*\(\s*&quot;.*&quot;\s*\)" ReplacementText="AssemblyVersion(&quot;$(SemanticVersion).0&quot;)" />
-
+	<Target Name="Deploy" DependsOnTargets="SemanticVersion">
 		<MSBuild
-            Projects="$(MSBuildProjectFile)"
-            Targets="Build"
+				Projects="$(MSBuildProjectFile)"
+				Targets="Package"
+				Properties="SemanticVersion=$(SemanticVersion)"
+        />
+
+		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
+		<Exec Command="git commit -a -m &quot;- v$(SemanticVersion)&quot;" />
+		<Exec Command="git push" />
+	</Target>
+
+	<Target Name="Package" DependsOnTargets="SemanticVersion">
+		<MSBuild
+				Projects="$(MSBuildProjectFile)"
+				Targets="Build"
         />
 
 		<ItemGroup>
@@ -49,6 +48,13 @@
 		<SetNugetPackageVersions Files="$(DeploymentFolder)\nuget\package.nuspec" PackageFolder="..\packages" />
 
 		<Exec Command="$(NuGetExecutablePath) pack $(DeploymentFolder)\nuget\package.nuspec -OutputDirectory $(DeploymentFolder)\nuget -NoPackageAnalysis" />
-		<Exec Command="$(NuGetExecutablePath) push $(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg" Condition="$(Operation) != 'pack-only'" />
+
+		<MakeDir Directories="$(NugetPackageSourceFolder)" Condition="$(NugetPackageSourceFolder) != ''" />
+
+		<Copy
+		  SourceFiles="$(DeploymentFolder)\nuget\$(PackageName).$(SemanticVersion).nupkg"
+		  DestinationFolder="$(NugetPackageSourceFolder)"
+		  SkipUnchangedFiles="false"
+		  Condition="$(NugetPackageSourceFolder) != ''" />
 	</Target>
 </Project>
