@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<Target Name="Build">
-		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Debug;Platform=AnyCPU;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\deployment\debug\%(Framework.Identity)"/>
+		<MSBuild Projects="@(ProjectReference)" Targets="Rebuild" Properties="Configuration=Debug;Platform=AnyCPU;Framework=%(Framework.Identity);OutputPath=$(MSBuildProjectDirectory)\$(DeploymentFolder)\debug\%(Framework.Identity)"/>
 	</Target>
 
 	<Target Name="SemanticVersion">
