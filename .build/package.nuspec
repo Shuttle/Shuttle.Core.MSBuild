@@ -12,7 +12,7 @@
 		<description>Contains MSBuild tasks used in building Shuttle solutions.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>msbuild shuttle</tags>
+		<tags>msbuild shuttle shuttle-core-msbuild</tags>
 	</metadata>
 	<files>
 		<file src="tools\**\*.*" target="tools" />
