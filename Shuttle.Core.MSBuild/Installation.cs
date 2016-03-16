@@ -127,7 +127,7 @@ namespace Shuttle.Core.MSBuild
 		{
 			foreach (ProjectItem projectItem in _vsProject.ProjectItems)
 			{
-				if (!projectItem.Name.Equals("shuttle-core-msbuild-readme.md"))
+				if (!projectItem.Name.Equals("Shuttle.Core.MSBuild-readme.md"))
 				{
 					continue;
 				}

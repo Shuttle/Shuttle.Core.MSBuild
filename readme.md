@@ -1,4 +1,4 @@
-shuttle-core-msbuild
+Shuttle.Core.MSBuild
 ====================
 
 Does not add any references but rather adds the assemblies to the `Tools` NuGet package folder.

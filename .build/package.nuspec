@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0"?>
 <package >
 	<metadata>
-		<id>shuttle-core-msbuild</id>
+		<id>Shuttle.Core.MSBuild</id>
 		<version>{semver}</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
-		<licenseUrl>https://github.com/shuttle/shuttle-core-msbuild/raw/master/LICENSE</licenseUrl>
-		<projectUrl>https://github.com/shuttle/shuttle-core-msbuild</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/shuttle-core-msbuild/master/.media/logo.png</iconUrl>
+		<licenseUrl>https://github.com/shuttle/Shuttle.Core.MSBuild/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/Shuttle.Core.MSBuild</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Core.MSBuild/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Contains MSBuild tasks used in building Shuttle solutions.</description>
 		<releaseNotes/>

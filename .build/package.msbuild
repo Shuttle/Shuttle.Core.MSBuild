@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<DeploymentFolder>deployment</DeploymentFolder>
 		<PackageAssembly>Shuttle.Core.MSBuild</PackageAssembly>
-		<PackageName>shuttle-core-msbuild</PackageName>
+		<PackageName>Shuttle.Core.MSBuild</PackageName>
 	</PropertyGroup>
 	
 	<UsingTask AssemblyFile="..\Shuttle.Core.MSBuild\bin\Debug\Shuttle.Core.MSBuild.dll" TaskName="Shuttle.Core.MSBuild.Prompt" />
@@ -57,7 +57,7 @@
 
 		<Copy SourceFiles="package.nuspec" DestinationFolder="$(DeploymentFolder)\nuget" SkipUnchangedFiles="false" />
 		<Copy SourceFiles="@(NugetTools)" DestinationFolder="$(DeploymentFolder)\nuget\tools\" SkipUnchangedFiles="false" />
-		<Copy SourceFiles="..\readme.md" DestinationFiles="$(DeploymentFolder)\nuget\content\shuttle-core-msbuild-readme.md" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="..\readme.md" DestinationFiles="$(DeploymentFolder)\nuget\content\Shuttle.Core.MSBuild-readme.md" SkipUnchangedFiles="false" />
 
 		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{semver\}" ReplacementText="$(SemanticVersion)" />
 		<RegexFindAndReplace Files="$(DeploymentFolder)\nuget\package.nuspec" FindExpression="\{year\}" ReplacementText="$([System.DateTime]::Now.ToString(`yyyy`))" />
