@@ -106,7 +106,7 @@ namespace Shuttle.Core.MSBuild
 			File.Copy(Path.Combine(_toolsPath, sourceFileName), targetPath);
 
 			var packageAssembly = _vsProject.Name;
-			var packageName = packageAssembly.ToLower().Replace(".", "-");
+			var packageName = packageAssembly;
 
 			var task = new RegexFindAndReplaceTask();
 
