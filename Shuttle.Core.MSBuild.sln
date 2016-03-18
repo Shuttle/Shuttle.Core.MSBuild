@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Core.MSBuild", "Shuttle.Core.MSBuild\Shuttle.Core.MSBuild.csproj", "{C5F8BE30-C599-4495-A67D-BDA0F6D1FFF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Core.MSBuild.Tests", "Shuttle.Core.MSBuild.Tests\Shuttle.Core.MSBuild.Tests.csproj", "{A8200101-493D-45D7-AC1B-65C1EDD413FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{911FCB34-025D-4FEE-BD79-72958F181A11}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{5F305AF2-18C1-4600-891B-046924A6E50D}"
+	ProjectSection(SolutionItems) = preProject
+		.build\Install.ps1 = .build\Install.ps1
+		.build\package.msbuild = .build\package.msbuild
+		.build\package.msbuild.template = .build\package.msbuild.template
+		.build\package.nuspec = .build\package.nuspec
+		.build\package.nuspec.template = .build\package.nuspec.template
+		.build\Shuttle.Core.MSBuild.targets = .build\Shuttle.Core.MSBuild.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02AE5412-F192-49C6-8A9B-0F98DAC5EF7B}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5F8BE30-C599-4495-A67D-BDA0F6D1FFF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F8BE30-C599-4495-A67D-BDA0F6D1FFF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F8BE30-C599-4495-A67D-BDA0F6D1FFF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F8BE30-C599-4495-A67D-BDA0F6D1FFF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8200101-493D-45D7-AC1B-65C1EDD413FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8200101-493D-45D7-AC1B-65C1EDD413FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8200101-493D-45D7-AC1B-65C1EDD413FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8200101-493D-45D7-AC1B-65C1EDD413FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
+
