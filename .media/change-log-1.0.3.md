@@ -1,2 +1,0 @@
-- PackageFolder expanded to full path
-	- when SetNugetPackageVersions.PackageFolder is not rooted the full path will be determined.
