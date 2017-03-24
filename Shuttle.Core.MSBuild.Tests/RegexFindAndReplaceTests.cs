@@ -18,11 +18,12 @@ namespace Shuttle.Core.MSBuild.Tests
 					BuildEngine = new Mock<IBuildEngine>().Object,
 					Files = new List<ITaskItem>
 						{
-							new TaskItem(@".\files\regex-find-and-replace-test.txt")
+							new TaskItem(FilePathExtensions.BasePath(@".\files\regex-find-and-replace-test.txt"))
 						}.ToArray()
 				};
 
-			File.Copy(@".\files\regex-find-and-replace.txt", @".\files\regex-find-and-replace-test.txt", true);
+			File.Copy(FilePathExtensions.BasePath(@".\files\regex-find-and-replace.txt"),
+                FilePathExtensions.BasePath(@".\files\regex-find-and-replace-test.txt"), true);
 
 			task.FindExpression = @"AssemblyInformationalVersion\s*\(\s*"".*""\s*\)";
 			task.ReplacementText = "AssemblyInformationalVersion(\"new-version-number\")";
@@ -39,13 +40,13 @@ namespace Shuttle.Core.MSBuild.Tests
 
 			Assert.True(task.Execute());
 
-			var contents = File.ReadAllText(@".\files\regex-find-and-replace-test.txt");
+			var contents = File.ReadAllText(FilePathExtensions.BasePath(@".\files\regex-find-and-replace-test.txt"));
 
 			Assert.IsTrue(contents.Contains("[assembly: AssemblyVersion(\"new-version-number\")]"));
 			Assert.IsTrue(contents.Contains("[assembly: AssemblyInformationalVersion(\"new-version-number\")]"));
 			Assert.IsTrue(contents.Contains("<version>new-version-number</version>"));
 
-			File.Delete(@".\files\regex-find-and-replace-test.txt");
+			File.Delete(FilePathExtensions.BasePath(@".\files\regex-find-and-replace-test.txt"));
 		}
 	}
 }
