@@ -43,8 +43,8 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion(""1.0.0.0"")]
 [assembly: AssemblyCopyright(""Copyright © Eben Roux {year}"")]
-[assembly: AssemblyProduct(""Sebata.Ems"")]
-[assembly: AssemblyCompany(""Sebata"")]
+[assembly: AssemblyProduct(""Shuttle"")]
+[assembly: AssemblyCompany(""Shuttle"")]
 [assembly: AssemblyConfiguration(""Release"")]
 [assembly: AssemblyInformationalVersion(""1.0.0"")]
 [assembly: ComVisible(false)]
@@ -103,13 +103,6 @@ using System.Runtime.InteropServices;
 				throw new ApplicationException("No solution appears to be open.");
 			}
 
-			var solutionFolder = Path.GetDirectoryName(solution.Properties.Item("Path").Value.ToString());
-
-			if (string.IsNullOrEmpty(solutionFolder))
-			{
-				throw new ApplicationException("Could not determine solution path.");
-			}
-
 		    var projectFolder = Path.GetDirectoryName(_vsProject.Properties.Item("FullPath").Value.ToString());
 
 		    if (string.IsNullOrEmpty(projectFolder))
@@ -117,7 +110,7 @@ using System.Runtime.InteropServices;
 		        throw new ApplicationException("Could not determine project path.");
 		    }
 
-            var buildFolder = Path.Combine(solutionFolder, ".build");
+            var buildFolder = Path.Combine(projectFolder, ".build");
 
 			if (!Directory.Exists(buildFolder))
 			{
@@ -129,30 +122,30 @@ using System.Runtime.InteropServices;
 			ProcessBuildRelatedFile(buildFolder, "package.msbuild.template", "package.msbuild");
 			ProcessBuildRelatedFile(buildFolder, "package.nuspec.template", "package.nuspec");
 
-			Project buildFolderProject = null;
+		    ProjectItem buildFolderProjectItem = null;
 
-			foreach (Project project in solution.Projects)
-			{
-				if (!project.Name.Equals(".build", StringComparison.OrdinalIgnoreCase))
-				{
-					continue;
-				}
+		    foreach (ProjectItem projectItem in _vsProject.ProjectItems)
+		    {
+		        if (!projectItem.Name.Equals(".build", StringComparison.OrdinalIgnoreCase))
+		        {
+		            continue;
+		        }
 
-				buildFolderProject = project;
-				break;
-			}
+		        buildFolderProjectItem = projectItem;
+		        break;
+		    }
 
-			if (buildFolderProject == null)
-			{
-				buildFolderProject = solution.AddSolutionFolder(".build");
-			}
+		    if (buildFolderProjectItem == null)
+		    {
+		        buildFolderProjectItem = _vsProject.ProjectItems.AddFolder(".build");
+		    }
 
-			buildFolderProject.ProjectItems.AddFromFile(Path.Combine(buildFolder, "Shuttle.Core.MSBuild.dll"));
-			buildFolderProject.ProjectItems.AddFromFile(Path.Combine(buildFolder, "Shuttle.Core.MSBuild.targets"));
-			buildFolderProject.ProjectItems.AddFromFile(Path.Combine(buildFolder, "package.msbuild"));
-			buildFolderProject.ProjectItems.AddFromFile(Path.Combine(buildFolder, "package.nuspec"));
+		    buildFolderProjectItem.ProjectItems.AddFromFile(Path.Combine(buildFolder, "Shuttle.Core.MSBuild.dll"));
+		    buildFolderProjectItem.ProjectItems.AddFromFile(Path.Combine(buildFolder, "Shuttle.Core.MSBuild.targets"));
+		    buildFolderProjectItem.ProjectItems.AddFromFile(Path.Combine(buildFolder, "package.msbuild"));
+		    buildFolderProjectItem.ProjectItems.AddFromFile(Path.Combine(buildFolder, "package.nuspec"));
 
-		    _vsProject.Save();
+            _vsProject.Save();
 
 		    OverwriteAssemblyInfo(projectFolder);
 		    AddFramework(projectFolder);
