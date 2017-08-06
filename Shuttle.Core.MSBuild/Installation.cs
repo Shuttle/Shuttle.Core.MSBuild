@@ -17,6 +17,10 @@ namespace Shuttle.Core.MSBuild
 	        @"using System.Reflection;
 using System.Runtime.InteropServices;
 
+#if NET40FULL
+[assembly: AssemblyTitle(""{package-name} for .NET Framework 4.0"")]
+#endif
+
 #if NET45FULL
 [assembly: AssemblyTitle(""{package-name} for .NET Framework 4.5"")]
 #endif
@@ -53,6 +57,10 @@ using System.Runtime.InteropServices;
 	    private const string ProjectFileTermplate =
 	        @"  <PropertyGroup>
     <Framework Condition="" '$(Framework)' == '' "">net45-full</Framework>
+  </PropertyGroup>
+  <PropertyGroup Condition=""'$(Framework)' == 'net40-full'"">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <DefineConstants>$(DefineConstants);NET40FULL</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=""'$(Framework)' == 'net45-full'"">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
