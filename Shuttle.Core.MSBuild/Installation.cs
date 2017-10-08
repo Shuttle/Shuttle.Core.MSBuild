@@ -168,6 +168,11 @@ using System.Runtime.InteropServices;
 	            return;
 	        }
 
+	        if (File.ReadAllText(projectFilePath).Contains("$(Framework)' == ''"))
+	        {
+	            return;
+	        }
+
 	        try
 	        {
 	            var result = new StringBuilder();
@@ -209,16 +214,21 @@ using System.Runtime.InteropServices;
 
 	    private void OverwriteAssemblyInfo(string projectFolder)
 	    {
-	        var aseemblyInfoPath = Path.Combine(projectFolder, "Properties\\AssemblyInfo.cs");
+	        var assemblyInfoPath = Path.Combine(projectFolder, "Properties\\AssemblyInfo.cs");
 
-	        if (!File.Exists(aseemblyInfoPath))
+	        if (!File.Exists(assemblyInfoPath))
+	        {
+	            return;
+	        }
+
+	        if (File.ReadAllText(assemblyInfoPath).Contains("#if NET"))
 	        {
 	            return;
 	        }
 
 	        try
 	        {
-	            File.WriteAllText(aseemblyInfoPath,
+	            File.WriteAllText(assemblyInfoPath,
 	                AssemblyInfoTemplate.Replace("{package-name}", _vsProject.Name).Replace("{year}", DateTime.Now.ToString("yyyy")));
 	        }
 	        catch
