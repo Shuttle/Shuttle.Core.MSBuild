@@ -1,5 +1,6 @@
-Shuttle.Core.MSBuild
-====================
+# Shuttle.Core.MSBuild
+
+***This project is now obsolete*** and has been replaced by https://github.com/Shuttle/Shuttle.NuGetPackager
 
 Does not add any references but rather adds the assemblies to the `Tools` NuGet package folder.
 
